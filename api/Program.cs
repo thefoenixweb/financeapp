@@ -129,5 +129,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+// Seed the database with default data
+await Seeder.SeedData(app);
+
 app.Run();
 

@@ -49,10 +49,13 @@ const Sidebar = (props: Props) => {
   return (
     <div className="fixed left-0 top-0 h-full w-64 shadow-lg bg-neutral-900 text-neutral-100 light-mode:bg-white light-mode:text-neutral-900 z-[9999] pointer-events-auto">
       {/* Header */}
-      <div className="flex items-center space-x-3 p-6 border-b border-neutral-700 light-mode:border-neutral-300">
+      <Link 
+        to="/" 
+        className="flex items-center space-x-3 p-6 border-b border-neutral-700 light-mode:border-neutral-300 hover:bg-neutral-800 light-mode:hover:bg-neutral-50 transition-colors cursor-pointer"
+      >
         <img src={logo} alt="Finance App Logo" className="w-8 h-8" />
         <h1 className="text-xl font-bold text-neutral-100 light-mode:text-neutral-800">Finance App</h1>
-      </div>
+      </Link>
 
       {/* Navigation Tabs */}
       <nav className="p-4">
