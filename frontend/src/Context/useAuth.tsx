@@ -26,6 +26,11 @@ export const UserProvider = ({ children }: Props) => {
 
     useEffect(() => {
         const initializeAuth = async () => {
+
+            // Clear session on startup
+            localStorage.removeItem("user");
+            localStorage.removeItem("token");
+            
             const user = localStorage.getItem("user");
             const token = localStorage.getItem("token");
 
@@ -33,6 +38,7 @@ export const UserProvider = ({ children }: Props) => {
                 setUser(JSON.parse(user));
                 setToken(token);
                 axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+                console.log("Existing session found, skipping auto-login.");
             } else {
                 // Auto-login with seeded user if no existing session
                 try {
@@ -116,6 +122,7 @@ export const UserProvider = ({ children }: Props) => {
                 setToken(autoLoginResult.token);
                 setUser(userObj);
                 axios.defaults.headers.common["Authorization"] = "Bearer " + autoLoginResult.token;
+                console.log("Auto-login successful:", autoLoginResult);
                 toast.success("Auto-login successful");
             }
         } catch (error) {
