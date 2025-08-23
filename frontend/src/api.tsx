@@ -48,11 +48,9 @@ export const getCompanyProfile = async (symbol: string) => {
         if (data) return data;
     } catch (error: any) {
         if (error.response && error.response.status === 404) {
-            // Not in DB, so fetch from FMP and store
-            await axios.post(`${BACKEND_URL}/company-profile`, { ...{ symbol } });
-            // Try GET again
-            const { data: newData } = await axios.get(`${BACKEND_URL}/company-profile/${symbol}`);
-            return newData;
+            // Not in DB, so fetch from FMP and store in DB using the correct endpoint
+            const { data: fetchedData } = await axios.get(`${BACKEND_URL}/company-profile/${symbol}/fetch`);
+            return fetchedData;
         }
         console.error('Error getting company profile:', error);
         return null;
@@ -73,20 +71,33 @@ export const getKeyMetrics = async (symbol: string) => {
 //function to get the company income statement response
 export const getIncomeStatement = async (symbol: string) => {
     try {
-        const { data } = await axios.get<CompanyIncomeStatement[]>(`${BACKEND_URL}/financial-statement/fmp/income/${symbol}`);
-        return data;
-    } catch (error) {
+        // Try to get from DB first
+        const { data } = await axios.get(`${BACKEND_URL}/financial-statement/fmp/income/${symbol}`);
+        if (data && data.length > 0) return data;
+    } catch (error: any) {
+        if (error.response && error.response.status === 404) {
+            // Not in DB, so fetch from FMP and store in DB using the correct endpoint
+            const { data: fetchedData } = await axios.get(`${BACKEND_URL}/financial-statement/fmp/income/${symbol}/fetch`);
+            return fetchedData;
+        }
         console.error('Error getting income statement:', error);
         return [];
     }
 };
 
+
 //function to get the company balance sheet response
 export const getBalanceSheet = async (symbol: string) => {
     try {
-        const { data } = await axios.get<CompanyBalanceSheet[]>(`${BACKEND_URL}/financial-statement/fmp/balance/${symbol}`);
-        return data;
-    } catch (error) {
+        // Try to get from DB first
+        const { data } = await axios.get(`${BACKEND_URL}/financial-statement/fmp/balance/${symbol}`);
+        if (data && data.length > 0) return data;
+    } catch (error: any) {
+        if (error.response && error.response.status === 404) {
+            // Not in DB, so fetch from FMP and store in DB using the correct endpoint
+            const { data: fetchedData } = await axios.get(`${BACKEND_URL}/financial-statement/fmp/balance/${symbol}/fetch`);
+            return fetchedData;
+        }
         console.error('Error getting balance sheet:', error);
         return [];
     }
@@ -95,9 +106,15 @@ export const getBalanceSheet = async (symbol: string) => {
 //function to get the company cash flow statement response
 export const getCashFlowStatement = async (symbol: string) => {
     try {
-        const { data } = await axios.get(`${BACKEND_URL}/cashflow/${symbol}`);
-        return data;
-    } catch (error) {
+        // Try to get from DB first
+        const { data } = await axios.get(`${BACKEND_URL}/financial-statement/fmp/cashflow/${symbol}`);
+        if (data && data.length > 0) return data;
+    } catch (error: any) {
+        if (error.response && error.response.status === 404) {
+            // Not in DB, so fetch from FMP and store in DB using the correct endpoint
+            const { data: fetchedData } = await axios.get(`${BACKEND_URL}/financial-statement/fmp/cashflow/${symbol}/fetch`);
+            return fetchedData;
+        }
         console.error('Error getting cash flow statement:', error);
         return [];
     }

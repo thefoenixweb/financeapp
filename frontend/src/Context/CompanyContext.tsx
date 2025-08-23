@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { CompanyProfile } from '../../company';
-import { getCompanyProfile } from '../api';
+import { getCompanyProfile } from '../api'; // remove addToPortfolio
 
 interface CompanyContextType {
     ticker: string | undefined;
@@ -56,7 +56,6 @@ export const CompanyProvider: React.FC<{ children: React.ReactNode }> = ({ child
                 if (result) {
                     setCompanyData(result);
                 } else {
-                    console.error('No company data found for ticker:', ticker);
                     navigate('/search');
                 }
             } catch (error) {
@@ -83,4 +82,4 @@ export const useCompany = () => {
         throw new Error('useCompany must be used within a CompanyProvider');
     }
     return context;
-}; 
+};

@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Newtonsoft.Json;
 
 namespace api.Models
 {
@@ -9,14 +8,24 @@ namespace api.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Column(TypeName = "varchar(255)")]
         public string Symbol { get; set; }
+
+        [Column(TypeName = "varchar(255)")]
         public string ReportedCurrency { get; set; }
+
+        [Column(TypeName = "varchar(255)")]
         public string Cik { get; set; }
+
         public DateTime Date { get; set; }
         public DateTime FillingDate { get; set; }
         public DateTime AcceptedDate { get; set; }
         public int calendarYear { get; set; }
+
+        [Column(TypeName = "varchar(255)")]
         public string Period { get; set; }
+
         public double Revenue { get; set; }
         public double CostOfRevenue { get; set; }
         public double GrossProfit { get; set; }
@@ -45,7 +54,11 @@ namespace api.Models
         public double Epsdiluted { get; set; }
         public long WeightedAverageShsOut { get; set; }
         public long WeightedAverageShsOutDil { get; set; }
+
+        [Column(TypeName = "varchar(255)")]
         public string Link { get; set; }
+
+        [Column(TypeName = "varchar(255)")]
         public string FinalLink { get; set; }
 
         // Relationship to Stock

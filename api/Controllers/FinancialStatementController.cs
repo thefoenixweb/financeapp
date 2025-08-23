@@ -45,6 +45,41 @@ namespace api.Controllers
             return Ok(result);
         }
 
+        [HttpGet("cashflow/{symbol}")]
+        public async Task<ActionResult<IEnumerable<CashFlowStatementDto>>> GetCashFlowStatement(string symbol)
+        {
+            var result = await _cashFlowService.GetFromDbAsync(symbol);
+            if (result == null || !result.Any()) return NotFound();
+            return Ok(result);
+        }
+
+        // Fetch from FMP and store in DB (GET endpoint for income statement)
+        [HttpGet("income/{symbol}/fetch")]
+        public async Task<IActionResult> FetchAndStoreIncomeStatement(string symbol)
+        {
+            var result = await _incomeService.FetchAndStoreFromFmpAsync(symbol);
+            if (result == null || !result.Any()) return NotFound();
+            return Ok(result);
+        }
+
+        // Fetch from FMP and store in DB (GET endpoint for balance sheet)
+        [HttpGet("balance/{symbol}/fetch")]
+        public async Task<IActionResult> FetchAndStoreBalanceSheet(string symbol)
+        {
+            var result = await _balanceSheetService.FetchAndStoreFromFmpAsync(symbol);
+            if (result == null || !result.Any()) return NotFound();
+            return Ok(result);
+        }
+
+        // Fetch from FMP and store in DB (GET endpoint for cashflow statement)
+        [HttpGet("cashflow/{symbol}/fetch")]
+        public async Task<IActionResult> FetchAndStoreCashFlowStatement(string symbol)
+        {
+            var result = await _cashFlowService.FetchAndStoreFromFmpAsync(symbol);
+            if (result == null || !result.Any()) return NotFound();
+            return Ok(result);
+        }
+
         [HttpPost("income")]
         public async Task<IActionResult> CreateIncomeStatement([FromBody] api.Dtos.Account.SymbolRequestDto request)
         {
@@ -63,6 +98,17 @@ namespace api.Controllers
                 return BadRequest("Symbol is required.");
 
             var result = await _balanceSheetService.FetchAndStoreFromFmpAsync(request.Symbol);
+            if (result == null || !result.Any()) return NotFound();
+            return Ok(result);
+        }
+
+        [HttpPost("cashflow")]
+        public async Task<IActionResult> CreateCashFlowStatement([FromBody] api.Dtos.Account.SymbolRequestDto request)
+        {
+            if (request == null || string.IsNullOrWhiteSpace(request.Symbol))
+                return BadRequest("Symbol is required.");
+
+            var result = await _cashFlowService.FetchAndStoreFromFmpAsync(request.Symbol);
             if (result == null || !result.Any()) return NotFound();
             return Ok(result);
         }

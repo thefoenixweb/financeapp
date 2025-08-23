@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data;
 
@@ -18,46 +17,43 @@ namespace api.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.0")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = "2e57ae8b-03b8-46bf-91d7-bf7e230d1cb7",
+                            Id = "e32049e7-b90a-4785-a275-f8a2a175fee2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "5050f089-639c-4608-9caf-5bafa16f8742",
+                            Id = "6e9ffbf1-d1db-4d9d-beb9-4607e8aa3d34",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -69,17 +65,15 @@ namespace api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -94,17 +88,15 @@ namespace api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -116,17 +108,17 @@ namespace api.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -138,10 +130,10 @@ namespace api.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -153,16 +145,16 @@ namespace api.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -172,54 +164,54 @@ namespace api.Migrations
             modelBuilder.Entity("api.Models.AppUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
 
@@ -228,8 +220,7 @@ namespace api.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -240,175 +231,173 @@ namespace api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<DateTime>("AcceptedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<double>("AccountPayables")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("AccumulatedOtherComprehensiveIncomeLoss")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("CapitalLeaseObligations")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("CashAndCashEquivalents")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("CashAndShortTermInvestments")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<string>("Cik")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("CommonStock")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<double>("DeferredRevenue")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("DeferredRevenueNonCurrent")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("DeferredTaxLiabilitiesNonCurrent")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<DateTime>("FillingDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("FinalLink")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("Goodwill")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("GoodwillAndIntangibleAssets")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("IntangibleAssets")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("Inventory")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<string>("Link")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("LongTermDebt")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("LongTermInvestments")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("MinorityInterest")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("NetDebt")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("NetReceivables")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("OtherAssets")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("OtherCurrentAssets")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("OtherCurrentLiabilities")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("OtherLiabilities")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("OtherNonCurrentAssets")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("OtherNonCurrentLiabilities")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("OthertotalStockholdersEquity")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<string>("Period")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("PreferredStock")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("PropertyPlantEquipmentNet")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<string>("ReportedCurrency")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("RetainedEarnings")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("ShortTermDebt")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("ShortTermInvestments")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<int?>("StockId")
                         .HasColumnType("int");
 
                     b.Property<string>("Symbol")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("TaxAssets")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("TaxPayables")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("TotalAssets")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("TotalCurrentAssets")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("TotalCurrentLiabilities")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("TotalDebt")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("TotalEquity")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("TotalInvestments")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("TotalLiabilities")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("TotalLiabilitiesAndStockholdersEquity")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("TotalLiabilitiesAndTotalEquity")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("TotalNonCurrentAssets")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("TotalNonCurrentLiabilities")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("TotalStockholdersEquity")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<int>("calendarYear")
                         .HasColumnType("int");
@@ -426,133 +415,131 @@ namespace api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<DateTime>("AcceptedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<double>("AccountsPayables")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("AccountsReceivables")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("AcquisitionsNet")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("CapitalExpenditure")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("CashAtBeginningOfPeriod")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("CashAtEndOfPeriod")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("ChangeInWorkingCapital")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<string>("Cik")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("CommonStockIssued")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("CommonStockRepurchased")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<double>("DebtRepayment")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("DeferredIncomeTax")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("DepreciationAndAmortization")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("DividendsPaid")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("EffectOfForexChangesOnCash")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<DateTime>("FillingDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("FinalLink")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("FreeCashFlow")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("Inventory")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("InvestmentsInPropertyPlantAndEquipment")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<string>("Link")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("NetCashProvidedByOperatingActivities")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("NetCashUsedForInvestingActivites")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("NetCashUsedProvidedByFinancingActivities")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("NetChangeInCash")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("NetIncome")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("OperatingCashFlow")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("OtherFinancingActivites")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("OtherInvestingActivites")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("OtherNonCashItems")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("OtherWorkingCapital")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<string>("Period")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("PurchasesOfInvestments")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<string>("ReportedCurrency")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("SalesMaturitiesOfInvestments")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("StockBasedCompensation")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<int?>("StockId")
                         .HasColumnType("int");
 
                     b.Property<string>("Symbol")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("calendarYear")
                         .HasColumnType("int");
@@ -570,146 +557,143 @@ namespace api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("Beta")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<string>("Ceo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("Changes")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<string>("Cik")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Currency")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Cusip")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("Dcf")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("DcfDiff")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<bool>("DefaultImage")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Exchange")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ExchangeShortName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("FullTimeEmployees")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Image")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Industry")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("IpoDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<bool>("IsActivelyTrading")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsAdr")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsEtf")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsFund")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Isin")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("LastDiv")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("MktCap")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("Price")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<string>("Range")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Sector")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("State")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int?>("StockId")
                         .HasColumnType("int");
 
                     b.Property<string>("Symbol")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("VolAvg")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<string>("Website")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Zip")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("StockId")
-                        .IsUnique()
-                        .HasFilter("[StockId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("CompanyProfiles");
                 });
@@ -720,121 +704,119 @@ namespace api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<DateTime>("AcceptedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Cik")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("CostAndExpenses")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("CostOfRevenue")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<double>("DepreciationAndAmortization")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("Ebitda")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("EbitdaRatio")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("Eps")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("Epsdiluted")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<DateTime>("FillingDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("FinalLink")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("GeneralAndAdministrativeExpenses")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("GrossProfit")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("GrossProfitRatio")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("IncomeBeforeTax")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("IncomeBeforeTaxRatio")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("IncomeTaxExpense")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("InterestExpense")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("InterestIncome")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<string>("Link")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("NetIncome")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("NetIncomeRatio")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("OperatingExpenses")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("OperatingIncome")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("OperatingIncomeRatio")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("OtherExpenses")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<string>("Period")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ReportedCurrency")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("ResearchAndDevelopmentExpenses")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("Revenue")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("SellingAndMarketingExpenses")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<double>("SellingGeneralAndAdministrativeExpenses")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<int?>("StockId")
                         .HasColumnType("int");
 
                     b.Property<string>("Symbol")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("TotalOtherIncomeExpensesNet")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<long>("WeightedAverageShsOut")
                         .HasColumnType("bigint");
@@ -855,7 +837,7 @@ namespace api.Migrations
             modelBuilder.Entity("api.Models.Portfolio", b =>
                 {
                     b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("StockId")
                         .HasColumnType("int");
@@ -873,28 +855,26 @@ namespace api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("CompanyName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Industry")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<decimal>("LastDiv")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<double>("MarketCap")
-                        .HasColumnType("float");
+                        .HasColumnType("double");
 
                     b.Property<decimal>("Purchase")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Symbol")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
