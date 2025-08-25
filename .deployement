@@ -1,0 +1,5 @@
+[config]
+SCM_DO_BUILD_DURING_DEPLOYMENT=true
+
+[command]
+command=cd api && dotnet publish -c Release -o out
