@@ -7,6 +7,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'api/**' # This is the crucial line to only trigger on backend changes
   workflow_dispatch:
 
 jobs:
@@ -23,11 +25,13 @@ jobs:
         with:
           dotnet-version: '8.x'
 
-      - name: Build with dotnet
+      - name: Navigate to api folder and build
         run: dotnet build --configuration Release
+        working-directory: './api' # Tell the action to run this command in the 'api' folder
 
-      - name: dotnet publish
+      - name: Navigate to api folder and publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        working-directory: './api' # Tell the action to run this command in the 'api' folder
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
