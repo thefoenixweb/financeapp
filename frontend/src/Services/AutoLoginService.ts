@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BACKEND_URL = 'http://localhost:5167/api/account';
+const BACKEND_URL = 'https://financeapp-fvemb9b0fhgdhyce.southafricanorth-01.azurewebsites.net/account';
 
 export interface AutoLoginResponse {
   userName: string;
