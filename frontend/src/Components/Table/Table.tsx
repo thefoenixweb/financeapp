@@ -5,7 +5,7 @@ import { testIncomeStatementData } from './testData.tsx'
 
 type Props = {
   config: {
-    Label: string;
+    label: string;
     render: (company: any) => any;
   }[];
   data: any[];
@@ -50,7 +50,7 @@ const Table = ({config, data}: Props) => {
         {config.map((val: any) => {
           //return a table cell for each config 
           return (
-            <td key={val.Label} className="p-4 whitespace-nowrap text-sm font-normal text-neutral-900 light-mode:text-gray-900">
+            <td key={val.label} className="p-4 whitespace-nowrap text-sm font-normal text-neutral-900 light-mode:text-gray-900">
               {/* this is the map value from the outer map used as a parameter */}
               {val.render(company)}
             </td>
@@ -65,9 +65,9 @@ const Table = ({config, data}: Props) => {
     //label is used as both the key and the string 
     return (
       <th className="p-4 text-left text-xs font-medium text-fray-500 uppercase tracking wider"
-        key={config.Label}
+        key={config.label}
       >
-        {config.Label}
+        {config.label}
       </th>
     )
   })
@@ -80,11 +80,11 @@ const Table = ({config, data}: Props) => {
             <tr>
               {config.map((item) => (
                 <th
-                  key={item.Label}
+                  key={item.label}
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-neutral-400 uppercase tracking-wider light-mode:text-gray-500"
                 >
-                  {item.Label}
+                  {item.label}
                 </th>
               ))}
             </tr>
@@ -94,7 +94,7 @@ const Table = ({config, data}: Props) => {
               <tr key={index} className="hover:bg-neutral-700 light-mode:hover:bg-gray-50">
                 {config.map((col) => (
                   <td
-                    key={col.Label}
+                    key={col.label}
                     className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-100 light-mode:text-gray-900"
                   >
                     {col.render(item)}

@@ -4,11 +4,11 @@ import { mockStocks } from '../../MockData/mockData.ts';
 
 const StocksPage: React.FC = () => {
   const stocksTableConfig = [
-    { Label: "Symbol", render: (stock: any) => stock.symbol },
-    { Label: "Company", render: (stock: any) => stock.companyName },
-    { Label: "Price", render: (stock: any) => `$${stock.price.toFixed(2)}` },
-    { Label: "Change", render: (stock: any) => `${stock.changes > 0 ? '+' : ''}${stock.changes.toFixed(2)}%` },
-    { Label: "Volume", render: (stock: any) => `${(stock.volAvg / 1000000).toFixed(0)}M` },
+    { label: "Symbol", render: (stock: any) => stock.symbol },
+    { label: "Company", render: (stock: any) => stock.companyName },
+    { label: "Price", render: (stock: any) => `$${stock.price.toFixed(2)}` },
+    { label: "Change", render: (stock: any) => `${stock.changes > 0 ? '+' : ''}${stock.changes.toFixed(2)}%` },
+    { label: "Volume", render: (stock: any) => `${(stock.volAvg / 1000000).toFixed(0)}M` },
   ];
 
   return (

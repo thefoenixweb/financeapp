@@ -8,7 +8,7 @@ type Props = {}
 //This tableConfig is for dummy data
 const tableConfig = [
   {
-    Label: "Market Cap",
+    label: "Market Cap",
     render: (company: CompanyKeyMetrics) => company.marketCapTTM,
     subTitle: "Total value of all a company's shares of stock",
   }

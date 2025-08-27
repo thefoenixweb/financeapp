@@ -1,8 +1,10 @@
 import axios from "axios"
-import { CompanyKeyMetrics, CompanyProfile, CompanySearch, CompanyIncomeStatement, CompanyBalanceSheet, CompanyCashFlow } from "../company";
+// import { CompanyKeyMetrics, CompanyProfile, CompanySearch, CompanyIncomeStatement, CompanyBalanceSheet, CompanyCashFlow } from "../company";
+import { CompanySearch } from "../company";
 
-const API_KEY = import.meta.env.VITE_API_KEY;
-const BASE_URL = "https://financialmodelingprep.com/api/v3/";
+
+// const API_KEY = import.meta.env.VITE_API_KEY;
+// const BASE_URL = "https://financialmodelingprep.com/api/v3/";
 const BACKEND_URL = "http://localhost:5167/api";
 
 //interface to get the company search response
@@ -10,15 +12,15 @@ interface SearchResponse {
     data: CompanySearch[];
 }
 
-//interface to get the company profile response
-interface CompanyProfileResponse {
-    data: CompanyProfile[];
-}
+// //interface to get the company profile response
+// interface CompanyProfileResponse {
+//     data: CompanyProfile[];
+// }
 
-//interface to get the company key metrics response
-interface CompanyKeyMetricsResponse {
-    data: CompanyKeyMetrics[];
-}
+// //interface to get the company key metrics response
+// interface CompanyKeyMetricsResponse {
+//     data: CompanyKeyMetrics[];
+// }
 
 
 

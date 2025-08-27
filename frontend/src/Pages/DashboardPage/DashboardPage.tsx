@@ -88,10 +88,10 @@ const DashboardPage: React.FC = () => {
     };
 
     const marketIndexesConfig = [
-        { Label: "Symbol", render: (data: CompanySearch) => data.symbol },
-        { Label: "Name", render: (data: CompanySearch) => data.name },
-        { Label: "Exchange", render: (data: CompanySearch) => data.exchangeShortName },
-        { Label: "Currency", render: (data: CompanySearch) => data.currency },
+        { label: "Symbol", render: (data: CompanySearch) => data.symbol },
+        { label: "Name", render: (data: CompanySearch) => data.name },
+        { label: "Exchange", render: (data: CompanySearch) => data.exchangeShortName },
+        { label: "Currency", render: (data: CompanySearch) => data.currency },
     ];
 
     return (

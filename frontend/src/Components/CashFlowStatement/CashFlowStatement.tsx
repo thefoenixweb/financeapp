@@ -12,43 +12,43 @@ interface ContextType {
 
 const config = [
   {
-    Label: "Date",
+    label: "Date",
     render: (company: CompanyCashFlow) => company.date,
   },
   {
-    Label: "Operating Cashflow",
+    label: "Operating Cashflow",
     render: (company: CompanyCashFlow) =>
       formatLargeMonetaryNumber(company.operatingCashFlow),
   },
   {
-    Label: "Investing Cashflow",
+    label: "Investing Cashflow",
     render: (company: CompanyCashFlow) =>
       formatLargeMonetaryNumber(company.netCashUsedForInvestingActivites),
   },
   {
-    Label: "Financing Cashflow",
+    label: "Financing Cashflow",
     render: (company: CompanyCashFlow) =>
       formatLargeMonetaryNumber(
         company.netCashUsedProvidedByFinancingActivities
       ),
   },
   {
-    Label: "Cash At End of Period",
+    label: "Cash At End of Period",
     render: (company: CompanyCashFlow) =>
       formatLargeMonetaryNumber(company.cashAtEndOfPeriod),
   },
   {
-    Label: "CapEX",
+    label: "CapEX",
     render: (company: CompanyCashFlow) =>
       formatLargeMonetaryNumber(company.capitalExpenditure),
   },
   {
-    Label: "Issuance Of Stock",
+    label: "Issuance Of Stock",
     render: (company: CompanyCashFlow) =>
       formatLargeMonetaryNumber(company.commonStockIssued),
   },
   {
-    Label: "Free Cash Flow",
+    label: "Free Cash Flow",
     render: (company: CompanyCashFlow) =>
       formatLargeMonetaryNumber(company.freeCashFlow),
   },

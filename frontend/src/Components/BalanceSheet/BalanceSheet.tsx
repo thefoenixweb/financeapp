@@ -10,19 +10,19 @@ interface Props {
 const BalanceSheet = ({ balanceSheet }: Props) => {
   const config = [
     {
-      Label: "Date",
+      label: "Date",
       render: (company: CompanyBalanceSheet) => company.date,
     },
     {
-      Label: "Total Assets",
+      label: "Total Assets",
       render: (company: CompanyBalanceSheet) => formatLargeMonetaryNumber(company.totalAssets),
     },
     {
-      Label: "Total Liabilities",
+      label: "Total Liabilities",
       render: (company: CompanyBalanceSheet) => formatLargeMonetaryNumber(company.totalLiabilities),
     },
     {
-      Label: "Total Equity",
+      label: "Total Equity",
       render: (company: CompanyBalanceSheet) => formatLargeMonetaryNumber(company.totalStockholdersEquity),
     },
   ];
