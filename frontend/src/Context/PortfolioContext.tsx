@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import axios from 'axios';
 
-const BACKEND_URL = 'http://localhost:5167/api';
+const BACKEND_URL = 'https://https://financeapp-fvemb9b0fhgdhyce.southafricanorth-01.azurewebsites.net/api';
 
 interface PortfolioItem {
   symbol: string;
