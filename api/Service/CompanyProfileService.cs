@@ -18,7 +18,7 @@ public class CompanyProfileService
     public async Task<CompanyProfileDto> FetchAndStoreFromFmpAsync(string symbol)
     {
         var apiKey = _config["FMPKey"];
-        var url = $"https://financialmodelingprep.com/stable/profile?symbol={symbol}&apikey={_config["FMPKey"]}";
+        var url = $"https://financialmodelingprep.com/stable/profile?symbol={symbol}&apikey={_config["apiKey"]}";
         var client = _httpClientFactory.CreateClient();
         var response = await client.GetStringAsync(url);
 
