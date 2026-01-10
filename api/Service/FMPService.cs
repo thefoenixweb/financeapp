@@ -14,27 +14,38 @@ namespace api.Service
     {
         private HttpClient _httpClient;
         private IConfiguration _config;
-        public FMPService(HttpClient httpClient, IConfiguration config)
+        private readonly ILogger<FMPService> _logger;
+        public FMPService(HttpClient httpClient, IConfiguration config, ILogger<FMPService> logger)
         {
             _httpClient = httpClient;
             _config = config;
+            _logger = logger;
         }
         public async Task<Stock> FindStockBySymbolAsync(string symbol)
         {
             try
             {
-                var result = await _httpClient.GetAsync($"https://financialmodelingprep.com/stable/profile?symbol={symbol}&apikey={_config["FMPKey"]}");
-                if (result.IsSuccessStatusCode)
+                // NOTE: symbol is used as-is (no URL encoding)
+                var url = $"https://financialmodelingprep.com/stable/profile?symbol={symbol}&apikey={_config["FMPKey"]}";
+                var result = await _httpClient.GetAsync(url);
+
+                var content = await result.Content.ReadAsStringAsync();
+
+                if (!result.IsSuccessStatusCode)
                 {
-                    var content = await result.Content.ReadAsStringAsync();
-                    var tasks = JsonConvert.DeserializeObject<FMPStock[]>(content);
-                    var stock = tasks[0];
-                    if (stock != null)
-                    {
-                        return stock.ToStockFromFMP();
-                    }
+                    // log raw response body for debugging
+                    Console.WriteLine($"FMP request failed. URL: {url} StatusCode: {(int)result.StatusCode} Body: {content}");
                     return null;
                 }
+
+                var tasks = JsonConvert.DeserializeObject<FMPStock[]>(content);
+                var stock = tasks != null && tasks.Length > 0 ? tasks[0] : null;
+                if (stock != null)
+                {
+                    return stock.ToStockFromFMP();
+                }
+                // log empty response body when no stock found
+                Console.WriteLine($"FMP returned no stock for symbol '{symbol}'. Raw body: {content}");
                 return null;
             }
             catch (Exception e)
