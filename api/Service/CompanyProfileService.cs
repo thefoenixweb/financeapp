@@ -1,18 +1,29 @@
 using api.Dtos.Stock;
 using api.Models;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
 
 public class CompanyProfileService
 {
     private readonly ICompanyProfileRepository _repository;
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IConfiguration _config;
+    private readonly ILogger<CompanyProfileService> _logger;
 
-    public CompanyProfileService(ICompanyProfileRepository repository, IHttpClientFactory httpClientFactory, IConfiguration config)
+    public CompanyProfileService(
+        ICompanyProfileRepository repository,
+        IHttpClientFactory httpClientFactory,
+        IConfiguration config,
+        ILogger<CompanyProfileService> logger)
     {
         _repository = repository;
         _httpClientFactory = httpClientFactory;
         _config = config;
+        _logger = logger;
     }
 
     public async Task<CompanyProfileDto> FetchAndStoreFromFmpAsync(string symbol)
@@ -20,11 +31,48 @@ public class CompanyProfileService
         var apiKey = _config["FMPKey"];
         var url = $"https://financialmodelingprep.com/stable/profile?symbol={symbol}&apikey={apiKey}";
         var client = _httpClientFactory.CreateClient();
-        var response = await client.GetStringAsync(url);
 
-        var dtos = JsonConvert.DeserializeObject<List<CompanyProfileDto>>(response);
+        string responseBody;
+        try
+        {
+            var response = await client.GetAsync(url);
+            responseBody = await response.Content.ReadAsStringAsync();
+
+            // Log raw HTTP response for debugging (be mindful of sensitive data & size)
+            _logger.LogInformation("FMP raw response for {Symbol} (status {StatusCode}): {Body}", symbol, (int)response.StatusCode, responseBody);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.LogWarning("FMP returned non-success status for {Symbol}: {StatusCode}", symbol, (int)response.StatusCode);
+                return null;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "HTTP request to FMP failed for {Symbol} (URL: {Url})", symbol, url);
+            return null;
+        }
+
+        List<CompanyProfileDto> dtos;
+        try
+        {
+            dtos = JsonConvert.DeserializeObject<List<CompanyProfileDto>>(responseBody);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to deserialize FMP response for {Symbol}. Raw response: {Body}", symbol, responseBody);
+            return null;
+        }
+
         var dto = dtos?.FirstOrDefault();
-        if (dto == null) return null;
+        if (dto == null)
+        {
+            _logger.LogWarning("FMP returned empty array for {Symbol}. Raw response: {Body}", symbol, responseBody);
+            return null;
+        }
+
+        // Log DTO (serialized) at Debug level
+        _logger.LogDebug("FMP DTO for {Symbol}: {Dto}", symbol, JsonConvert.SerializeObject(dto));
 
         var entity = new CompanyProfile
         {
@@ -66,8 +114,21 @@ public class CompanyProfileService
             IsFund = dto.IsFund
         };
 
-        await _repository.AddOrUpdateAsync(entity);
-        await _repository.SaveChangesAsync();
+        // Log mapped entity at Debug level
+        _logger.LogDebug("Mapped CompanyProfile entity for {Symbol}: {Entity}", symbol, JsonConvert.SerializeObject(entity));
+
+        try
+        {
+            await _repository.AddOrUpdateAsync(entity);
+            await _repository.SaveChangesAsync();
+            _logger.LogInformation("Saved CompanyProfile for {Symbol} to database", symbol);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error saving CompanyProfile for {Symbol}. Entity: {Entity}", symbol, JsonConvert.SerializeObject(entity));
+            throw;
+        }
+
         return dto;
     }
 
@@ -112,8 +173,19 @@ public class CompanyProfileService
             IsAdr = dto.IsAdr,
             IsFund = dto.IsFund
         };
-        await _repository.AddOrUpdateAsync(entity);
-        await _repository.SaveChangesAsync();
+
+        try
+        {
+            await _repository.AddOrUpdateAsync(entity);
+            await _repository.SaveChangesAsync();
+            _logger.LogInformation("Stored CompanyProfile for {Symbol} via StoreProfileAsync", dto.Symbol);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error storing CompanyProfile via StoreProfileAsync for {Symbol}. Entity: {Entity}", dto.Symbol, JsonConvert.SerializeObject(entity));
+            throw;
+        }
+
         return dto;
     }
 
