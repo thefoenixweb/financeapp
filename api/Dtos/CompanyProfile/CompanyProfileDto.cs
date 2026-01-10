@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.Dtos.Stock
 {
@@ -21,6 +22,8 @@ namespace api.Dtos.Stock
         public string ExchangeShortName { get; set; }
         public string Industry { get; set; }
         public string Website { get; set; }
+
+        [Column(TypeName = "text")] 
         public string Description { get; set; }
         public string Ceo { get; set; }
         public string Sector { get; set; }
