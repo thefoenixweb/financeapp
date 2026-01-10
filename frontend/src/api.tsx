@@ -6,7 +6,7 @@ import { CompanySearch } from "../company";
 // const API_KEY = import.meta.env.VITE_API_KEY;
 // const BASE_URL = "https://financialmodelingprep.com/api/v3/";
 //const BACKEND_URL = "http://localhost:5167/api";
-const BACKEND_URL = "https://myfinanceapp-hsesc2c9atb0h8cs.southafricanorth-01.azurewebsites.net/api";
+const BACKEND_URL = "http://localhost:5000/api";
 
 //interface to get the company search response
 interface SearchResponse {
