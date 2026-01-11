@@ -80,8 +80,8 @@ public class BalanceSheetStatementService
                 TotalInvestments = dto.TotalInvestments,
                 TotalDebt = dto.TotalDebt,
                 NetDebt = dto.NetDebt,
-                Link = dto.Link,
-                FinalLink = dto.FinalLink
+                Link = dto.Link ?? string.Empty,
+                FinalLink = dto.FinalLink ?? string.Empty
             };
             await _repository.AddAsync(entity);
         }

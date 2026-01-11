@@ -20,7 +20,13 @@ public class IncomeStatementService
         var apiKey = _config["FMPKey"];
         var url = $"https://financialmodelingprep.com/stable/income-statement?symbol={symbol}&apikey={apiKey}";
         var client = _httpClientFactory.CreateClient();
-        var response = await client.GetStringAsync(url);
+        var httpResponse = await client.GetAsync(url);
+    var response = await httpResponse.Content.ReadAsStringAsync();
+    if (!httpResponse.IsSuccessStatusCode)
+   {
+        Console.WriteLine($"[ERROR] FMP returned {(int)httpResponse.StatusCode} {httpResponse.StatusCode} for {symbol}: {response}");
+        httpResponse.EnsureSuccessStatusCode();
+    }
 
         var dtos = JsonConvert.DeserializeObject<List<IncomeStatementDto>>(response);
         Console.WriteLine($"[DEBUG] Deserialized {dtos.Count} income statements for {symbol}");
@@ -65,8 +71,8 @@ public class IncomeStatementService
                 Epsdiluted = dto.Epsdiluted,
                 WeightedAverageShsOut = dto.WeightedAverageShsOut,
                 WeightedAverageShsOutDil = dto.WeightedAverageShsOutDil,
-                Link = dto.Link,
-                FinalLink = dto.FinalLink
+                Link = dto.Link ?? string.Empty,
+                FinalLink = dto.FinalLink ?? string.Empty
             };
             Console.WriteLine($"[DEBUG] {symbol} entity.calendarYear: {entity.calendarYear} (type: {entity.calendarYear.GetType()})");
             await _repository.AddAsync(entity);

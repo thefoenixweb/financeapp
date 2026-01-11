@@ -128,8 +128,8 @@ namespace api.Service
                 OperatingCashFlow = dto.OperatingCashFlow,
                 CapitalExpenditure = dto.CapitalExpenditure,
                 FreeCashFlow = dto.FreeCashFlow,
-                Link = dto.Link,
-                FinalLink = dto.FinalLink
+                Link = dto.Link ?? string.Empty,
+                FinalLink = dto.FinalLink ?? string.Empty
             };
             await _repository.AddAsync(entity);
             return dto;
