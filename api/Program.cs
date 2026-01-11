@@ -112,6 +112,19 @@ builder.Services.AddScoped<BalanceSheetStatementService>();
 builder.Services.AddScoped<ICompanyProfileRepository, CompanyProfileRepository>();
 builder.Services.AddScoped<CompanyProfileService>();
 
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowNetlify", policy =>
+    {
+        policy.WithOrigins("https://financeapp555.netlify.app", "http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
+
 
 var app = builder.Build();
 
