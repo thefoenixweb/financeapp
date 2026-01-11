@@ -25,7 +25,7 @@ namespace api.Service
 
         public async Task<List<CashFlowStatementDto>> FetchAndStoreFromFmpAsync(string symbol)
         {
-            var url = $"https://financialmodelingprep.com/api/v3/cash-flow-statement/{symbol}?period=annual&apikey={_config["FMPKey"]}";
+            var url = $"https://financialmodelingprep.com/stable/cash-flow-statement?symbol={symbol}&apikey={_config["FMPKey"]}";
             var response = await _httpClient.GetAsync(url);
 
             if (!response.IsSuccessStatusCode)

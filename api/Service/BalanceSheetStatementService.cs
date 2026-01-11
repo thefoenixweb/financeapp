@@ -18,7 +18,7 @@ public class BalanceSheetStatementService
     public async Task<IEnumerable<BalanceSheetStatementDto>> FetchAndStoreFromFmpAsync(string symbol)
     {
         var apiKey = _config["FMPKey"];
-        var url = $"https://financialmodelingprep.com/api/v3/balance-sheet-statement/{symbol}?period=annual&apikey={apiKey}";
+        var url = $"https://financialmodelingprep.com/stable/balance-sheet-statement?symbol={symbol}&apikey={apiKey}";
         var client = _httpClientFactory.CreateClient();
         var response = await client.GetStringAsync(url);
 

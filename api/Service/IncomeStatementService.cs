@@ -18,7 +18,7 @@ public class IncomeStatementService
     public async Task<IEnumerable<IncomeStatementDto>> FetchAndStoreFromFmpAsync(string symbol)
     {
         var apiKey = _config["FMPKey"];
-        var url = $"https://financialmodelingprep.com/api/v3/income-statement/{symbol}?period=annual&apikey={apiKey}";
+        var url = $"https://financialmodelingprep.com/stable/income-statement?symbol={symbol}&apikey={apiKey}";
         var client = _httpClientFactory.CreateClient();
         var response = await client.GetStringAsync(url);
 
